@@ -323,7 +323,118 @@ I am proud to be a member of a community where people put the greater good above
 With appreciation"
 
 ```
+```{r echo = FALSE}
+mar_10_pt2 <- paste("Dear Harvard College Students, 
 
+I am writing to follow up on President Bacow’s email about Harvard’s response to the current challenges posed by the novel coronavirus (COVID-19). Although no one on our campus has been diagnosed with the virus, the University has a responsibility to take proactive measures in order to protect the health and well-being of every member of our community. That is why we are announcing today that Harvard College students will be required to move out of their Houses and First-Year dorms as soon as possible and no later than Sunday, March 15 at 5:00pm. 
+
+We realize that leaving campus at short notice will be challenging for some of you. If your home is in a country designated level 3 for COVID-19, or if your home is in a country subject to the federal government’s travel ban, you should consult with your resident dean as soon as possible for further information. If you have other concerns about leaving campus, you should also consult your resident dean as soon as possible. We have posted a list of important FAQs (e.g. moving out, storage, financial support, etc.), which we have also shared with parents and families.
+
+We are committed to ensuring that you will all be able to finish your spring term courses, and that you will remain on track to graduation. We are working with faculty to make sure that all courses will be offered remotely, and you will receive specific information about how to access them. If you have questions about specific courses, please be in touch with your instructors.
+ 
+In making this difficult decision, we have been guided by our commitment to the health of our community and by our responsibilities to the larger community. We have been fortunate to be able to draw on the wisdom of professionals in the Harvard community who have devoted their careers to responding to health emergencies. Public health experts have advised us that the best way to delay the virus transmission and to contain any breakout is to decrease the number of people on our campus. They believe that taking these actions will make it easier to maintain social distance and slow virus transmission. 
+
+I do not take lightly the apprehension and disappointment you will experience with this news. In the coming days our faculty and staff will be working diligently to implement plans to best support you during this transition. As you deal with the uncertainty of these unexpected challenges, I hope you will be gentle and respectful with others and with yourselves so that we can meet these challenges in ways that will reflect the College at its best.  
+
+Though circumstances will require us to physically distance ourselves from each other, we are going to be innovative in finding ways to continue to engage as a community and to draw strength from one another. I have seen us come together and support each other with compassion during difficult times, and I am confident that we will do so now as we meet this new challenge.
+
+Warmly")
+```
+
+```{r}
+mar_11_2020 <- paste("Dear Harvard College Students, 
+
+I am grateful to have had the opportunity to speak with many of you today about what you have been experiencing since you heard the news that you will have to leave campus. I recognize how difficult the last 36 hours have been for all of you, and I sympathize with the frustration you are experiencing as you try to meet the challenges ahead. Please know the College is working hard to support you and respond to the needs of our community in the midst of this rapidly evolving situation. We are committed to sharing as much information as possible with you as we learn more. I am writing now with updates about course flexibility, storage, shipping, travel booking assistance, room and board, as well as housing exceptions.
+
+Course Flexibility 
+The Faculty of Arts and Sciences has decided that effective immediately, all major academic deadlines, including Senior Thesis due dates, will be extended by one week. We hope this will allow you to focus on the logistical challenges of leaving campus.  
+
+Storage, Shipping, and Travel Booking Assistance 
+Mike Burke sent a message earlier today detailing additional move-out resources for all students. Please refer to this detailed resource for more information. 
+
+Room and Board 
+Room and board charges will be prorated for students who move out. 
+
+Housing Exceptions
+We are aware of the many circumstances that might make it very difficult for some students to return home. We are committed to ensuring our students’ well-being while also mindful of public health guidelines for the need to de-densify our residential buildings. The College will review all applications and announce decisions beginning tomorrow. I promise you that each application receives the careful consideration it deserves, while also remaining mindful of the need to provide answers quickly.
+
+Additional Resources
+Urgent Care, CAMHS, Title IX, and AODS remain open and fully operational. These resources are here to support you, so please take advantage of them if you need to. We have developed FAQs that are updated frequently, and a website for all College updates and information related to COVID-19. 
+ 
+* * *
+
+We are a community that gathers, and I know that the shift in our daily life on campus will bring great challenges and disappointments. In particular, I am thinking about our seniors. We’ve had an extraordinary journey together, and I know this is not how you or I expected our spring semester together would end. I am also thinking about our first-year students who were looking forward to Housing Day and to meeting all of the upper-class students, tutors, staff, and faculty deans who were excited to welcome them to their new home. We will find a way to celebrate this tradition in another way. 
+
+I appreciate your efforts to adhere to the health guidance provided by health experts for our campus, our larger community of Cambridge, and the world. I know in the coming days and weeks we will feel a range of emotions, have more questions to answer, and that we will continue to find ways to come together as a community. 
+
+Warmly")
+```
+
+```{r}
+```{r}
+mar_12_finaid <-paste("I'm writing to thank you for your patience and understanding as we navigate the effects of the COVID-19 emergency planning together. In the past two days since we all received the news from University leadership about moving students off campus, the Griffin Financial Aid Office has taken hundreds of your emails, phone calls, and walk-ins. We are fully committed to supporting you and your family during this emergency transition and beyond.
+
+The Faculty of Arts and Sciences has approved additional emergency financial aid funding for extraordinary expenses incurred by aided students due to the requirement to depart from campus early. The immediate concern is to help all students depart campus and resources have been deployed by the DSO and Campus Services to ensure that students without money immediately available can buy tickets and store or ship belongings.
+
+All students receiving financial aid will be eligible for reimbursement of their travel costs home. Students with a $0 parent contribution will be fully reimbursed and all other aided students will be reimbursed up to $750 depending on their level of aid. Exceptions beyond $750 will be granted for aided students on a case-by-case basis. We will be in touch with you about the process for requesting a reimbursement as soon as possible.
+
+We know there are still many more open-ended questions and we are working around the clock with FAS and University officials to get you answers. Here are some of the most frequently asked questions. You can also find this information on the Dean of Students Office website.
+
+What should I do if I cannot afford a plane, bus or train ticket?
+
+Our priority is getting you home quickly and safely. For students who need assistance arranging travel, College staff will be stationed in all dining hall locations to help you book travel. Check dso.college.harvard.edu/coronavirus for updated locations and times. All charges incurred will be applied to your term bill. All students receiving financial aid will be eligible for reimbursement of their travel costs home. 
+
+Who should I contact if I don't have a place to go or don't want to leave?
+
+Please contact your Resident Dean (Allston Burr Resident Deans for students in the Houses, Resident Deans of First-Year Students for first-year students in the Yards.)
+
+What happens if I cannot work to pay my term and summer time contributions?
+
+We are seeking guidance about this issue, particularly as regards term-time earnings. We will update you as soon as we have more information and we appreciate your patience. With our recent expansion of financial aid, students are no longer expected to contribute from their summer earnings, which applies to this upcoming summer 2020.
+
+Will my Pell Grant be affected?
+
+The Department of Education released emergency guidelines regarding the use of federal financial aid funds. As long as students are enrolled and working towards their degree, Pell and SEOG funding will not be impacted.
+
+If you have any further questions, we encourage you to email, call, or visit our office at 86 Brattle Street. In addition, please continue to visit the Harvard College FAQ's for a complete list of resources. 
+
+Sincerely")
+```
+
+```{r}
+```{r}
+
+mar_16_2020 <- paste("Dear Harvard College Students, 
+
+The past week has been one of the toughest that any of us could ever have imagined facing together. Last Monday, you were attending classes and socializing with friends. Now, most of you have departed for the semester, and those who remain are adjusting to a very different campus. While the decision to de-densify our campus was disruptive and burdened you with enormous personal and logistical challenges, I believe it was the right thing to do for the safety and well-being of our community. Although absolutely necessary and required by the evolving global pandemic, the decision came with unintended and incredibly hard impacts on our community. I wish I could find the words to tell you how much I already miss seeing you on campus.
+
+I know you don’t need me to tell you how fortunate we all are to be a part of this extraordinary community. Harvard College is extraordinary not because of its hallowed history, beautiful architecture, or famous alumni, but because of each and every one of you. As I walked around campus this week, I was inspired by your empathy, your camaraderie, and your generosity towards each other. Students who had never met one another before were helping each other pack, lending a hand as boxes were loaded into waiting cars, or simply being there as a shoulder to lean on for those struggling. And in the midst of juggling difficult logistical issues, you found time to support your friends, and to enjoy each other’s company for a few more days. Your responses to this difficult time reminded all of us how much we mean to each other.
+
+I know we have all felt pain and sadness this week, and that the coming months will be difficult. Saying goodbye is one of the hardest things in life, and having to do so months sooner than you anticipated is an enormous burden for anyone. I know this week was especially hard for our seniors. But I take comfort in knowing we will find ways to reconnect in the coming weeks. Throughout the remainder of the term, our faculty and staff will do everything they can to stay connected with you. You already know that classes will continue, and that we will do our best to support your academic progress. And we will also do our best to foster a sense of community during this difficult time. I hope you will help us sustain our connections by reaching out to friends to see how they are and by finding new ways to work with classmates and faculty. I know that each of us will face different challenges as we adapt to these new circumstances, and not everything will go smoothly. But I hope that we will all be able to remain patient with each other and gentle with yourself.
+
+As we navigate our way through the rest of the spring term, you will continue to hear from me. You might even hear me quote the mission of the College once or twice because I believe it has never been so important. But one thing you won’t hear from me is “goodbye.” Because while we may have temporarily gone our separate ways, our journey together continues.
+
+I look forward to staying in touch as we meet this challenging moment together. 
+
+Warmly")
+```
+
+```{r}
+
+mar_16_2020 <- paste("Dear Harvard College Students, 
+
+The past week has been one of the toughest that any of us could ever have imagined facing together. Last Monday, you were attending classes and socializing with friends. Now, most of you have departed for the semester, and those who remain are adjusting to a very different campus. While the decision to de-densify our campus was disruptive and burdened you with enormous personal and logistical challenges, I believe it was the right thing to do for the safety and well-being of our community. Although absolutely necessary and required by the evolving global pandemic, the decision came with unintended and incredibly hard impacts on our community. I wish I could find the words to tell you how much I already miss seeing you on campus.
+
+I know you don’t need me to tell you how fortunate we all are to be a part of this extraordinary community. Harvard College is extraordinary not because of its hallowed history, beautiful architecture, or famous alumni, but because of each and every one of you. As I walked around campus this week, I was inspired by your empathy, your camaraderie, and your generosity towards each other. Students who had never met one another before were helping each other pack, lending a hand as boxes were loaded into waiting cars, or simply being there as a shoulder to lean on for those struggling. And in the midst of juggling difficult logistical issues, you found time to support your friends, and to enjoy each other’s company for a few more days. Your responses to this difficult time reminded all of us how much we mean to each other.
+
+I know we have all felt pain and sadness this week, and that the coming months will be difficult. Saying goodbye is one of the hardest things in life, and having to do so months sooner than you anticipated is an enormous burden for anyone. I know this week was especially hard for our seniors. But I take comfort in knowing we will find ways to reconnect in the coming weeks. Throughout the remainder of the term, our faculty and staff will do everything they can to stay connected with you. You already know that classes will continue, and that we will do our best to support your academic progress. And we will also do our best to foster a sense of community during this difficult time. I hope you will help us sustain our connections by reaching out to friends to see how they are and by finding new ways to work with classmates and faculty. I know that each of us will face different challenges as we adapt to these new circumstances, and not everything will go smoothly. But I hope that we will all be able to remain patient with each other and gentle with yourself.
+
+As we navigate our way through the rest of the spring term, you will continue to hear from me. You might even hear me quote the mission of the College once or twice because I believe it has never been so important. But one thing you won’t hear from me is “goodbye.” Because while we may have temporarily gone our separate ways, our journey together continues.
+
+I look forward to staying in touch as we meet this challenging moment together. 
+
+Warmly")
+```
 
 ```{r analysis_functions, echo = FALSE}
 
