@@ -353,7 +353,7 @@ speech_analysis_tbl <- function(speech){
 china_search <- function(speech_tbl){
   speech_analysis_tbl(speech_tbl) %>%
     filter(word == "china") %>%
-    pull(count)
+    pull(as.numeric(count))
 }
 
 ```
@@ -386,20 +386,23 @@ china_tibble <- tibble(
                   "feb_2_2020_2",
                   "feb_29_2020",
                   "march_4_2020",
-                  "march_6_2020"),
+                  "march_6_2020",
+               "march_10_2020"),
   china_count = lapply(all_speeches, china_search)) %>%
   unnest(cols = c(china_count))
 
 china_tibble$speeches <- factor(china_tibble$speeches, levels = c("jan_24_2020",
                   "jan_30_2020",
-                  "feb_2_2020",
+                 "feb_2_2020",
                   "feb_2_2020_2",
                   "feb_29_2020",
                   "march_4_2020",
-                  "march_6_2020"))
+                  "march_6_2020",
+                  "march_10_2020"))
 
 china_tibble %>%
-  ggplot(aes(x = speeches, y = china_count)) + geom_point()
+  ggplot(aes(y = china_count, x = speeches)) + 
+  geom_point()
 
 ```
 
