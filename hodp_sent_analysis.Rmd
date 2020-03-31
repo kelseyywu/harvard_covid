@@ -1,0 +1,405 @@
+---
+title: "hodp_sent_analysis"
+author: "Kelsey Wu"
+date: "3/30/2020"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tokenizers)
+```
+
+```{r jan_24_speech_text, include = FALSE}
+
+jan_24_2020 <- "Dear Members of the Harvard Community,
+
+As students arrive back on campus and we find ourselves in the midst of cold and flu season, I want to remind you to be vigilant in taking precautions to prevent the spread of illnesses. Practicing good hygiene and ensuring that you have your flu vaccination are paramount to help ensure the health and safety of everyone in the community. Additionally, I want to share that the University is monitoring the global concern for the novel coronavirus coming out of Wuhan, China, and will continue to keep our community informed.
+
+Staying healthy on campus
+
+Although HUHS has not received indications to-date that Harvard University has experienced an unusual number of flu cases this winter, the number of reported cases in Massachusetts and across the country has begun to increase, as is customary for this time of year.
+
+Simple measures can help lower your risk of getting sick. We all have a responsibility to prevent the spread of flu, cold, and other illnesses. Dense social and public spaces can present an increased risk of contracting and spreading illnesses, and prevention is centered on good hygiene:
+
+Wash your hands often with soap and water (20 seconds of scrubbing) or use alcohol-based hand cleaners (cover all surfaces and rub until dry).
+Cough/sneeze into a tissue. Dispose of used tissues immediately into a trash can. If you don’t have a tissue, cough/sneeze into the crook of your elbow, not your hands.
+Avoid touching your eyes, nose, and mouth, which accelerates the spread of infections.
+Avoid close contact with others who are sick.
+If you are sick, avoid contact with others, including parties, meetings, and events.
+Do not share glasses, eating utensils, water bottles, cigarettes/vapes/JUULs, lipstick/makeup, etc.
+
+Get your flu vaccine! (It’s not too late to benefit from it.)
+
+For all Harvard students and any other members of the community who receive their care at HUHS, flu vaccines are still available at HUHS. If you have not yet received one, make an appointment through the HUHS patient portal or by contacting HUHS at (617) 495-5711. For all other members of the community, please contact your primary care provider (PCP) to get your flu vaccine.
+
+If you think you may have the flu, please stay home and consult your PCP. Students are encouraged to call first and speak to a nurse about their symptoms at (617) 495-5711 before making an appointment or walking into HUHS.
+
+Coronavirus
+
+We are closely monitoring the situation with the novel coronavirus coming out of China. While we have no indication that Massachusetts or the Harvard campus are affected, we are working diligently to ensure that our clinical staff are prepared if someone presents to HUHS with symptoms and a clinical history that may indicate the novel coronavirus.
+
+We will continue to update the HUHS website as additional information becomes available through the CDC and Massachusetts Department of Public Health. Please visit our website for updates. Keep in mind that the prevention measures described above for the flu and other illnesses also help protect from coronavirus.
+
+For anyone who recently returned from China (particularly the Wuhan area):
+
+If you feel well, please follow the routine advice listed above while you go about your daily activities.
+If you develop respiratory symptoms or fever within 14 days of travel, call HUHS or your personal healthcare provider for phone consultation.
+For more information
+
+Visit the following sites for comprehensive information about:
+
+Seasonal flu: https://www.cdc.gov/flu/index.htm
+Coronavirus: https://www.cdc.gov/coronavirus/2019-ncov/index.html
+Viral illness prevention: https://huhs.harvard.edu/about-us/announcements-events/how-protect-yourself-viral-illness
+Wishing you good health as you begin the new semester!
+
+Best regards"
+```
+
+```{r jan_30_speech_text, include = FALSE}
+jan_30_2020 <- "Dear Members of the Harvard Community,
+ 
+Harvard University has been closely monitoring the evolving novel coronavirus outbreak that is centered in China. To date, there are no confirmed cases in Massachusetts.
+ 
+However, the U.S. Centers for Disease Control and Prevention (CDC) recently reclassified China to Level 3: Avoid Non-Essential Travel. Likewise, the U.S. Department of State has issued a Level 3: Reconsider Travel advisory for China and issued a Level 4: Do Not Travel warning for Hubei province.  In order to protect the health and safety of our community at home and abroad, and in accordance with the CDC and State Department guidance, we are issuing the following guidance for the Harvard community:
+
+1. We strongly discourage travel to China until further notice. If you believe that exceptional circumstances warrant your travel to China in the next 30 days, please contact the Office of the Vice Provost for International Affairs (international_affairs@harvard.edu). Please be aware that your travel may be disrupted by restrictions in China that are beyond your control.
+2. If you are currently in China, follow the guidance of local health authorities. Avoid contact with people who are ill, avoid animals and animal markets, and wash your hands often with soap and water or alcohol-based hand sanitizer. If you feel ill, call International SOS at +1-617-998-0000 or connect through the Assistance App. ISOS can provide advice and direct you to appropriate medical resources. Additional information is available from the CDC, which is monitoring this situation actively.
+3. If you were in China in the last 14 days and have a fever, cough, or difficulty breathing, please call Harvard University Health Services (HUHS, 617-495-5711) or your personal healthcare provider immediately and inform your clinician about your symptoms and your travel history. 
+ 
+At this time, CDC guidance does not require screenings or clearance for individuals arriving from China beyond the screenings currently being conducted at US ports of entry, including Logan airport. That could change, of course, as the situation evolves, and Harvard may need to impose conditions on travelers returning to campus if warranted by changing circumstances.
+ 
+As always, remember to register your international travel with International SOS MyTrips. Registration provides access to alerts and facilitates your access to emergency medical and security assistance if you need it during your travel.
+ 
+We recognize the anxiety and emotional strain that these circumstances may place on all of us. If you'd like to speak with a counselor or a mental health professional, contact Counseling and Mental Health Services (for students) or Harvard’s Employee Assistance Program.
+ 
+In addition, even as we take the precautions outlined in this letter, let us remember that the likelihood that any particular individual is infected with the coronavirus is very low. Simple measures such as washing hands regularly and other precautions outlined in HUHS’s January 24 message to the Harvard community help prevent transmission of respiratory illnesses like coronavirus.
+ 
+In consultation with colleagues around the University, HUHS will continue to monitor the spread of this novel coronavirus and will send updates periodically. In the meantime, we will regularly update the HUHS website and encourage you to check it for additional information.
+ 
+Sincerely,
+ 
+Alan M. Garber AB
+Provost
+ 
+Giang T. Nguyen
+Executive Director, Harvard University Health Services"
+```
+
+```{r feb_2_speech_text, include = FALSE}
+feb_2_2020 <- "Dear Members of the Harvard Community,
+
+Harvard University continues to closely monitor the evolving 2019 Novel Coronavirus (2019-nCov) outbreak centered in China. Since our last communication on this matter, there has been one confirmed case in Massachusetts: a student at the University of Massachusetts Boston who had recently returned from Wuhan, the epicenter of the current epidemic. This student was self-identified early, has not participated in UMass Boston activities since arrival from China, and will remain in isolation until cleared by health authorities. In addition, since our last communication, the U.S. Department of State has raised its travel advisory for mainland China to “Level 4 – Do Not Travel” and has placed major restrictions on incoming travelers from China.
+
+With these circumstances in mind, we are issuing the following updated guidance for the Harvard community:
+
+All Harvard University affiliates currently in China or who have returned from China since January 19, 2020 should complete this health form so that Harvard University Health Services (HUHS) can provide you with assistance and advice if necessary.The information you provide is secure and confidential.
+If you were in China and returned to the U.S. on January 18, 2020 or earlier, and you show no signs of fever, coughing, or difficulty breathing, no further action is necessary.
+University-related travel to China remains postponed until further notice. If you believe that highly exceptional circumstances warrant travel to China before the end of February, please contact the Office of the Vice Provost for International Affairs (international_affairs@harvard.edu).
+This is an evolving situation to which Harvard, public health officials, and government agencies are responding in real time, and Harvard may impose new requirements if warranted by changing circumstances.
+
+We ask our faculty colleagues to be as flexible as possible in accommodating students who are affected by this outbreak, and supervisors to be similarly accommodating with staff, including postdocs, who might be affected.
+
+We recognize that events like these can cause anxiety and emotional strain. If you would like to speak with a counselor or a mental health professional, contact Counseling and Mental Health Services (for students) or Harvard’s Employee Assistance Program (for faculty and staff).
+
+Please be sure to take the same reasonable precautions that we use to prevent the spread of all viral illnesses: practice good hand hygiene, don’t share food/drinks etc., avoid close contact with others if you feel sick, and cover your cough/sneeze.
+
+We emphasize that treating every member of our community with care and respect is of principal importance, especially during trying times like these. No member or segment of our community is at fault for this outbreak, and the risk that any particular individual is infected remains low. We maintain our commitment to treating every member of our community with dignity and respect.
+
+In consultation with colleagues around the University, HUHS will continue to monitor the spread of this novel coronavirus, send periodic updates, and refresh its website with information as it becomes available.
+
+Sincerely,
+
+Alan M. Garber AB '77, PhD '82, MD
+Provost
+
+Giang T. Nguyen MD, MPH, MSCE, FAAFP
+Executive Director, Harvard University Health Services"
+```
+
+```{r feb_2_2_speech_text, include = FALSE}
+
+feb_2_2020_2 <- "Dear Members of the Harvard Community,
+ 
+Harvard University continues to monitor the evolving outbreak of the 2019 Novel Coronavirus (now called COVID-19) centered in China. Although there are no reported cases on our campus, Harvard University Health Services (HUHS) and partners across the University meet regularly to coordinate preparations to respond swiftly should a case present within the community. Since our last communication on this matter on February 2, we are issuing the following updated guidance for the Harvard community.
+ 
+Advice for travel and programming in China
+ 
+University-related travel to mainland China remains strongly discouraged until further notice. If you were planning to participate in an activity in China during spring recess, you should check with organizers as soon as possible to learn whether alternative arrangements have been made. For those planning programs and travel abroad in the upcoming months, please be aware that this is an evolving situation to which Harvard, public health officials, and government agencies are responding in real time. Government agencies as well as Harvard may impose new requirements as needed, so please make your travel plans with appropriate flexibility.
+ 
+Until further notice, University travel to mainland China requires approval from the Provost. If you believe that exceptional circumstances warrant your travel there, please contact the Office of the Vice Provost for International Affairs (international_affairs@harvard.edu). When University travel restrictions are lifted, we will email the community and post the information on the HUHS and Harvard Global Support Services (GSS) websites.
+ 
+Effective February 2, the U.S. government restricted inbound travel from mainland China. American citizens and lawful permanent residents who visited or transited through China in the past 14 days are subject to screenings and may be required to submit to a 14-day quarantine or self-isolation. With limited exceptions, immigrants and nonimmigrants arriving from China, including those who have passed through Chinese ports, are not permitted entry into the United States until further notice. If you do not hold a U.S. passport, please exercise prudence in making travel plans in the coming weeks.
+ 
+Advice for travel and programming in the region
+ 
+To this point, the COVID-19 outbreak has been concentrated in China, but the number of reported cases outside China is growing. We strongly encourage anyone traveling to the region or anywhere abroad to register your travel in International SOS MyTrips and to review the Centers for Disease Control and Prevention’s (CDC) country-specific travel health notices for advice. You should also check with your airlines and embassies, as government authorities in Asia and elsewhere have imposed restrictions on air travelers arriving not only from mainland China but also from Hong Kong and Macau. Some of these restrictions apply to transit passengers. For more travel guidance, please visit the Harvard GSS website.
+ 
+For those who have recently returned from China
+ 
+All Harvard University affiliates currently in mainland China, or who have returned from mainland China on or after January 19, 2020, should complete this confidential health form so that HUHS can provide you with assistance and advice. If you have already completed the form for your most recent travel from China, we thank you. You do not need to fill it out again.
+ 
+Faculty and supervisors: please be flexible
+ 
+We ask our faculty colleagues to be as flexible as possible in accommodating students who are affected by this outbreak, and supervisors to be similarly accommodating with staff, including post-doctoral fellows, who might be affected.
+ 
+Protect yourself from viral illness
+ 
+Please take the same reasonable precautions that we use to prevent the spread of viral illnesses in general: practice good hand hygiene, do not share food/drinks etc., avoid close contact with others if you feel sick, and cover your cough/sneeze.
+ 
+Be respectful of others
+ 
+You may see people on campus wearing face masks. Although we do not recommend widespread use of face masks for asymptomatic people outside clinical settings, please remember that it is a social norm in many countries to wear a face mask during cold and flu season. Do not assume that a person wearing a face mask is infectious, or that they should be avoided. Treating all members of our community with respect and consideration is as important now as at any other time.
+ 
+We will continue to send periodic updates and refresh the HUHS coronavirus webpage with information as it becomes available.
+
+Sincerely,
+
+Alan M. Garber AB '77, PhD '82, MD
+Provost
+
+Giang T. Nguyen MD, MPH, MSCE, FAAFP
+Executive Director, Harvard University Health Services"
+
+```
+
+```{r}
+
+feb_27_2020 <- "Dear Members of the Harvard Community,
+ 
+Since our last communication about Coronavirus Disease 2019 (COVID-19) on February 20, there are no new confirmed cases in Massachusetts and no confirmed cases in the Harvard community. However, the number of cases outside China continues to rise.
+ 
+The CDC has urged communities to plan for the likely future spread of COVID-19 in the United States.  Contingency planning is already underway at Harvard.
+ 
+On February 24, the CDC also issued a Level 3 Travel Warning – “Avoid Nonessential Travel” – for South Korea. As a result, and in consultation with public health experts at Harvard, we are issuing updated guidance:
+
+University travel to South Korea and mainland China is now restricted until further notice. If you believe exceptional circumstances warrant your travel for University business, please contact the Office of the Vice Provost for International Affairs (international_affairs@harvard.edu).
+If you arrived or returned to campus from South Korea since February 24 or mainland China since February 3, please
+self-isolate for 14 days before returning to classes or work;
+complete this confidential health form so that Harvard University Health Services (HUHS) can provide assistance and advice.
+Register all international travel in Harvard’s International SOS MyTrips registry and review travel advice from Harvard Global Support Services.
+Keep in mind that any travel may be disrupted in the coming months. Other countries may be added to the CDC’s Level 3 Travel Warning due to coronavirus and would face similar University restrictions. 
+Please take the same precautions that we use to prevent viral illnesses in general. We will continue to send periodic updates and refresh the HUHS coronavirus webpage with information as it becomes available.
+
+Sincerely, 
+
+Alan M. Garber AB '77, PhD '82, MD
+Provost
+
+Giang T. Nguyen MD, MPH, MSCE, FAAFP
+Executive Director, Harvard University Health Services"
+
+```
+
+
+```{r}
+
+feb_29_2020 <- paste("Dear Members of the Harvard Community,
+
+On February 28, the CDC raised its coronavirus (COVID-19) travel warning for Italy and Iran to Level 3 – “Avoid Nonessential Travel.”
+
+As a result, Harvard is updating its travel guidance:
+
+University travel to Italy, Iran, South Korea and mainland China is restricted until further notice. If you have concerns about these restrictions, contact the Vice Provost for International Affairs at international_affairs@harvard.edu.
+Harvard will continue to restrict travel to any additional countries with CDC Level 3 Warning for COVID-19. This may change as the public health situation evolves.
+If considering outbound international travel for yourself or your program: Be aware that travel may be disrupted or quarantines imposed, especially – though not only – in locations with existing CDC Level 2 and Level 1 Warnings for COVID-19. Consult Harvard Global Support Services for travel advice.
+For inbound travelers who return or arrive to campus from Italy or Iran since February 28, South Korea since February 24, or mainland China since February 3:
+
+Please complete this confidential health form. If you already completed the form, you do not need to fill it out again.
+Please self-isolate until you receive advice from HUHS.
+Call HUHS 24/7 at 617-495-5711 if you have symptoms.
+We know that COVID-19 is causing anxiety at Harvard and elsewhere. We are tracking this issue closely and are writing regularly in order to keep you informed. Evidence still suggests that basic precautions are the most essential measures to protect yourself, and that the risk in Massachusetts remains low. We appreciate all that our community is doing to help us stay healthy, safe, and productive. We will continue to send periodic updates and refresh the HUHS coronavirus webpage with information as it becomes available.
+
+Sincerely")
+
+```
+
+```{r}
+
+march_4_2020 <- "Dear Members of the Harvard Community, 
+
+We write with substantially updated guidance on Spring Break and other travel with respect to coronavirus (COVID-19).
+
+For Spring Break and the near future: 
+
+Harvard prohibits University travel to all jurisdictions with Level 3 Travel Warning for coronavirus from the CDC: mainland China, Iran, Italy, and South Korea.
+
+We strongly discourage personal travel to jurisdictions with a Level 3 Travel Warning.
+
+Any traveler arriving from these areas (including short-term visitors to campus) must:
+complete this confidential health form prior to your return, and
+self-isolate in accordance with guidance from HUHS and your School or Department. Most self-isolations will last a minimum of 14 days.
+This also applies to travelers who are already in these jurisdictions.
+These requirements will be imposed for any jurisdiction the CDC raises to Level 3 for coronavirus in the coming weeks.
+
+For travel to/from other destinations:
+
+We discourage all non-essential international travel for now. If you decide to travel, be aware that health resources in those areas if they are affected by coronavirus. You may be subject to governmental travel restrictions with little or no notice, and airlines may limit or cancel flights without warning. You will be subject to any restrictions in place at the time of your return, not only at the time of departure. Return to the U.S. may be difficult, and after your arrival you may be required to stay away from campus.
+
+If you do travel internationally:
+Register your Harvard and personal travel and download the International SOS app so that you can receive alerts.
+Keep yourself informed about developments in your destination. Monitor the travel guidance provided by Harvard’s Global Support Services and by the CDC.
+ For domestic travelers:
+
+The known prevalence of COVID-19 infection in the U.S. is changing rapidly.  Use caution and judgment in planning domestic travel, and check for the latest information before embarking on your trip.
+For incoming visitors to campus:
+
+Any visitor arriving to campus from a Level 3 jurisdiction (currently mainland China, Iran, Italy, and South Korea), must follow the same guidance as Harvard affiliates: complete the HUHS health form and self-isolate until receiving guidance from HUHS, usually a minimum of 14 days.
+This also applies to visitors who have been invited to campus by Harvard groups and programs.
+ 
+Please visit Harvard’s new coronavirus website which is frequently updated with the latest guidance and resources.
+
+Everyone in our community is advised to practice appropriate hygiene and preventive measures to prevent the spread of viral illness on campus. Let us not be complacent in the simple steps that we can all take during cold and flu season. 
+
+We are deeply grateful for the sustained efforts and cooperation of the Harvard community in addressing this public health challenge. We recognize the challenge that this situation presents for our entire community and appreciate the cooperation and assistance of every one of you. Senior University leaders and officials from each School are meeting frequently to review, update, and communicate contingency plans. We will continue to send regular announcements and to update the Harvard coronavirus website. If you know of Harvard community members who might not receive this message, please share it with them.
+
+Sincerely, 
+
+Alan M. Garber AB '77, PhD '82, MD
+Provost
+
+Katie Lapp
+Executive Vice President, Harvard University
+
+Giang T. Nguyen MD, MPH, MSCE, FAAFP
+Executive Director, Harvard University Health Services"
+
+```
+
+```{r}
+
+march_6_2020 <- paste("Dear Members of the Harvard Community,
+We are notifying you of significant updates for:
+Domestic and international travel,
+Affiliates and visitors returning or arriving to campus, and
+On-campus meetings and events, including how to work and meet from home.
+The policies and resources outlined below are available on harvard.edu/coronavirus and are effective immediately through at least April 30. We will continue to update you on new or changed guidance as needed.
+TRAVEL: HARVARD BUSINESS AND PERSONAL
+Travel can increase the risks of exposure to you and the community. Government travel restrictions and public health measures are changing rapidly. Those changes may make it difficult for you to return to campus and resume activities. See the travel guidance on Harvard’s coronavirus webpage.
+International
+All University-related international travel is prohibited.
+All personal international travel is strongly discouraged.
+Domestic
+All University-related non-essential domestic air travel is prohibited.
+We strongly urge extreme caution and judgment for your personal domestic travel.
+We strongly encourage you to consider alternative methods to communicate and hold meetings, such as teleconferencing.
+RETURNING OR ARRIVING TO CAMPUS
+Anyone—including affiliates and invited guests—who returns or arrives to campus from a location with a CDC level 3 travel warning for COVID-19, must:
+Complete this confidential health form at least 48 hours before your return/arrival to campus.
+Self-isolate using guidance from HUHS. Most self-isolations will last a minimum of 14 days.
+ON-CAMPUS MEETINGS AND EVENTS
+We strongly discourage any non-essential meetings or events of 100 people or more.
+Academic classes and dining operations will continue as normal with heightened cleaning protocols.
+Organizers should postpone the gathering or use remote technology if possible. See Harvard’s on-campus meeting and event guidance.
+PREPARE NOW
+Make preventive measures part of your routine now (cough/sneeze into your arm, replace handshakes with elbow bumps, don’t share food/bottles, hand wash more often than usual, avoid touching your face).
+Begin preparing your devices to work from home and practice using Zoom.
+COMMUNICATION MATERIALS
+Please use and distribute HUHS’ communication resources—including fact sheets and posters—and post them in common areas around campus.
+Please be assured that senior University leaders and School officials are meeting frequently to review, update, and communicate contingency plans. We recognize the challenges this coronavirus outbreak presents for our community and we appreciate everyone’s cooperation, assistance, and ongoing efforts to prevent the transmission of disease. To further that goal, we will continue to send regular announcements and update the Harvard coronavirus website.
+Sincerely")
+
+
+```
+
+```{r}
+
+march_10_2020 <- "Dear Members of the Harvard Community,
+Like all of you, I have been intently following reports of Coronavirus Disease 2019 (COVID-19) and considering the many ways in which its future course might alter my life and the lives of those closest to me. These past few weeks have been a powerful reminder of just how connected we are to one another—and how our choices today determine our options tomorrow.
+Fortunately, a group of extremely dedicated people has been working literally around the clock to respond to the challenges posed by COVID-19. Our teams are considering every contingency as they undertake their important work on your behalf, and I write today to update you on major near-term changes that will limit exposure to the disease among members of our community:
+We will begin transitioning to virtual instruction for graduate and undergraduate classes. Our goal is to have this transition complete by Monday, March 23, which is the first day of scheduled classes following Spring Recess.
+Students are asked not to return to campus after Spring Recess and to meet academic requirements remotely until further notice. Students who need to remain on campus will also receive instruction remotely and must prepare for severely limited on-campus activities and interactions. All graduate students will transition to remote work wherever possible. Schools will communicate more specific guidance and information, and we encourage everyone to review previous guidance about both international and domestic travel.
+We are transitioning over the course of the next few days to non-essential gatherings of no more than 25 people. Please note this is a change from prior guidance.
+The decision to move to virtual instruction was not made lightly. The goal of these changes is to minimize the need to gather in large groups and spend prolonged time in close proximity with each other in spaces such as classrooms, dining halls, and residential buildings. Our actions are consistent with the recommendations of leading health officials on how to limit the spread of COVID-19 and are also consistent with similar decisions made by a number of our peer institutions. The campus will remain open and operations will continue with appropriate measures to protect the health of the community.
+
+For regular updates and additional information, please visit this dedicated webpage. Provost Alan Garber, Executive Vice President Katie Lapp, and HUHS Executive Director Giang Nguyen will continue to send you updates by email as needed. You will also continue to receive School- or Unit-specific information from local leadership. If you are a student or faculty member and have specific questions or concerns, I encourage you to be in touch with the contacts identified by your dean. If you are an employee, I encourage you to be in touch with your manager.
+Despite our best efforts to bring the University's resources to bear on this virus, we are still faced with uncertainty - and the considerable unease brought on by uncertainty. It will take time for researchers, a good many of them who are our colleagues, to understand enough about this disease to mount a reliable defense against it. Now more than ever, we must do our utmost to protect those among us who are most vulnerable, whether physically or emotionally, and to treat one another with generosity and respect. Harvard Counseling and Mental Health Services and the Harvard Employee Assistance Program are available to help you manage anxiety and stress. Your mental health is just as important as your physical health.
+To our students, I know it will be difficult to leave your friends and your classrooms. We are doing this not just to protect you but also to protect other members of our community who may be more vulnerable to this disease than you are. 
+To our faculty, I recognize that we are asking you midway through the semester to completely rethink how you teach. We do this because we know that you want to avoid putting your students at risk.
+To our staff, I understand that we are expecting you to go above and beyond in your efforts to support our important mission of teaching and scholarship. We do this because we know we can rely on your creativity, flexibility, and judgment through these challenging times.
+I am proud to be a member of a community where people put the greater good above their own self-interest. Thank you for your patience and your resilience as we all learn to temper increased distance with deeper care for one another. 
+With appreciation"
+
+```
+
+
+```{r analysis_functions, echo = FALSE}
+
+all_speeches <- c(jan_24_2020,
+                  jan_30_2020,
+                  feb_2_2020,
+                  feb_2_2020_2,
+                  feb_29_2020,
+                  march_4_2020,
+                  march_6_2020,
+                  march_10_2020
+                  )
+
+speech_analysis_tbl <- function(speech){
+
+  speech_words <- tokenize_words(speech)
+  
+  speech_length <- length(speech_words[[1]])
+  
+  speech_tab <- table(speech_words[[1]])
+  
+  speech_tab <- tibble(word = names(speech_tab), 
+              count = as.numeric(speech_tab)) %>%
+  arrange(desc(count))
+}
+
+china_search <- function(speech_tbl){
+  speech_analysis_tbl(speech_tbl) %>%
+    filter(word == "china") %>%
+    pull(count)
+}
+
+```
+
+```{r jan_30_setup_analysis, echo = FALSE}
+
+freq_tbl <- function(table, freq){
+  base_url <- "https://programminghistorian.org/assets/basic-text-processing-in-r"
+  
+  url <- sprintf("%s/sotu_text/236.txt", base_url)
+  
+  text <- paste(readLines(url), collapse = "\n")
+  
+  wf <- read_csv(sprintf("%s/%s", base_url, "word_frequency.csv"))
+  
+  freq_table <- inner_join(table, wf) %>%
+    filter(frequency < freq)
+  
+}
+
+```
+
+```{r all_days_speech_analysis, echo = FALSE}
+
+
+china_tibble <- tibble(
+  speeches = c("jan_24_2020",
+                  "jan_30_2020",
+                  "feb_2_2020",
+                  "feb_2_2020_2",
+                  "feb_29_2020",
+                  "march_4_2020",
+                  "march_6_2020"),
+  china_count = lapply(all_speeches, china_search)) %>%
+  unnest(cols = c(china_count))
+
+china_tibble$speeches <- factor(china_tibble$speeches, levels = c("jan_24_2020",
+                  "jan_30_2020",
+                  "feb_2_2020",
+                  "feb_2_2020_2",
+                  "feb_29_2020",
+                  "march_4_2020",
+                  "march_6_2020"))
+
+china_tibble %>%
+  ggplot(aes(x = speeches, y = china_count)) + geom_point()
+
+```
+
