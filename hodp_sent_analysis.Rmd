@@ -513,7 +513,7 @@ china_tibble$speeches <- factor(china_tibble$speeches, levels = c("1/24",
 ggplot(china_tibble, aes(y = china_count, x = speeches, group = 1)) + 
   geom_line() +
   labs(
-    title = "Frequency of the Word 'China' Across Speeches",
+    title = "Frequency of the Word 'China' Across Messages",
     x = "Date of Speech",
     y = "Number of Times 'China' Appears"
   ) + theme_classic()
