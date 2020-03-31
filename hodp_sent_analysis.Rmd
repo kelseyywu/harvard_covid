@@ -371,7 +371,6 @@ Warmly")
 ```
 
 ```{r}
-```{r}
 mar_12_finaid <-paste("I'm writing to thank you for your patience and understanding as we navigate the effects of the COVID-19 emergency planning together. In the past two days since we all received the news from University leadership about moving students off campus, the Griffin Financial Aid Office has taken hundreds of your emails, phone calls, and walk-ins. We are fully committed to supporting you and your family during this emergency transition and beyond.
 
 The Faculty of Arts and Sciences has approved additional emergency financial aid funding for extraordinary expenses incurred by aided students due to the requirement to depart from campus early. The immediate concern is to help all students depart campus and resources have been deployed by the DSO and Campus Services to ensure that students without money immediately available can buy tickets and store or ship belongings.
@@ -402,7 +401,6 @@ Sincerely")
 ```
 
 ```{r}
-```{r}
 
 mar_16_2020 <- paste("Dear Harvard College Students, 
 
@@ -421,7 +419,7 @@ Warmly")
 
 ```{r}
 
-mar_16_2020 <- paste("Dear Harvard College Students, 
+march_16_2020 <- paste("Dear Harvard College Students, 
 
 The past week has been one of the toughest that any of us could ever have imagined facing together. Last Monday, you were attending classes and socializing with friends. Now, most of you have departed for the semester, and those who remain are adjusting to a very different campus. While the decision to de-densify our campus was disruptive and burdened you with enormous personal and logistical challenges, I believe it was the right thing to do for the safety and well-being of our community. Although absolutely necessary and required by the evolving global pandemic, the decision came with unintended and incredibly hard impacts on our community. I wish I could find the words to tell you how much I already miss seeing you on campus.
 
@@ -491,29 +489,35 @@ freq_tbl <- function(table, freq){
 
 
 china_tibble <- tibble(
-  speeches = c("jan_24_2020",
-                  "jan_30_2020",
-                  "feb_2_2020",
-                  "feb_2_2020_2",
-                  "feb_29_2020",
-                  "march_4_2020",
-                  "march_6_2020",
-               "march_10_2020"),
+  speeches = c("1/24",
+                  "1/30",
+                  "2/2",
+                  "2/2 (2nd)",
+                  "2/29",
+                  "3/4",
+                  "3/6",
+               "3/10"),
   china_count = lapply(all_speeches, china_search)) %>%
   unnest(cols = c(china_count))
 
-china_tibble$speeches <- factor(china_tibble$speeches, levels = c("jan_24_2020",
-                  "jan_30_2020",
-                 "feb_2_2020",
-                  "feb_2_2020_2",
-                  "feb_29_2020",
-                  "march_4_2020",
-                  "march_6_2020",
-                  "march_10_2020"))
+china_tibble$speeches <- factor(china_tibble$speeches, levels = c("1/24",
+                  "1/30",
+                  "2/2",
+                  "2/2 (2nd)",
+                  "2/29",
+                  "3/4",
+                  "3/6",
+               "3/10"))
 
-china_tibble %>%
-  ggplot(aes(y = china_count, x = speeches)) + 
-  geom_point()
 
+ggplot(china_tibble, aes(y = china_count, x = speeches, group = 1)) + 
+  geom_line() +
+  labs(
+    title = "Frequency of the Word 'China' Across Speeches",
+    x = "Date of Speech",
+    y = "Number of Times 'China' Appears"
+  ) + theme_classic()
+
+ggsave(filename = "freq_china.png")
 ```
 
